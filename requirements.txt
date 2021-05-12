@@ -1,1 +1,4 @@
 django==3.0.7
+django-allauth
+social-auth-app-django
+social-auth-core
