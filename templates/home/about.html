@@ -1,0 +1,7 @@
+{% extends 'home/basic.html' %}
+
+{% block title%}About{% endblock title%}
+{% block body %}
+<img src="{{user.socialaccount_set.all.0.0.grt_avatar_url}}" alt=""/>
+
+{% endblock body %}

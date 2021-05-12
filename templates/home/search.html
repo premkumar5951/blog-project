@@ -1,0 +1,70 @@
+{% extends 'home/basic.html' %}
+{% block css %}
+<style>
+    .container {
+        max-width: 980px;
+
+    }
+</style>
+{% endblock css %}
+{% block title%}Blog Search{% endblock title%}
+{% block body %}
+<div class="container my-3">
+    <h2>Search result:</h2>
+    {% if query == "" %}
+    <p class="fs-5">Your search - <b>{{query|slice:":40"}}...</b>- did not match any documents. </p>
+    <ul>
+        <li>Make sure that all words are spelled correctly.</li>
+        <li>Try different keywords.</li>
+        <li>Try more general keywords.</li>
+
+    </ul>
+    {% else %}
+    {% if allsearch|length < 1 %}
+    <div>
+    <p class="fs-5">Your search -<b>{{query|slice:":50"}}...</b>- did not match any documents.</p>
+    <ul>
+        <li>Make sure that all words are spelled correctly.</li>
+        <li>Try different keywords.</li>
+        <li>Try more general keywords.</li>
+
+    </ul>
+        </div>
+    {% endif %}
+    {% for i in allsearch %}
+    <div class="col-md-12 my-3  text-white">
+        <div class="row g-0 border rounded overflow-hidden bg-dark flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 text-primary"> By {{i.author}}</strong>
+                <h3 class="mb-0">{{i.title}}</h3>
+                <div class="mb-1 text-muted">{{i.time}}</div>
+                <p class="card-text mb-auto">{{i.content|slice:":200"}}...</p>
+                <a href="/blog/{{i.title}}{{i.sno}}" class="stretched-link mt-3"><button class="btn btn-primary">Continue reading</button></a>
+            </div>
+            <div class="col-auto d-none d-lg-block">
+                <svg class="bd-placeholder-img" width="200" height="100%" xmlns="http://www.w3.org/2000/svg" role="img"
+                    aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <title>Placeholder</title>
+                    <rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef"
+                        dy=".3em">Thumbnail</text>
+                </svg>
+
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+
+    {% block js %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+     <script type="text/javascript">
+ 
+ var alertList = document.querySelectorAll('.alert')
+ alertList.forEach(function (alert) {
+   new bootstrap.Alert(alert)
+ })
+     </script>
+ {% endblock %}
+{% endblock body %}
